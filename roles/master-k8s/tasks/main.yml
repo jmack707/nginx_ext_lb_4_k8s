@@ -36,10 +36,10 @@
       args:
         chdir: $HOME
 
-    - name: install Pod network
+    - name: customize Pod network
       become: true
       become_user: labuser
-      shell: kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.24.1/manifests/tigera-operator.yaml
+      shell: kubectl create -f https://raw.githubusercontent.com/jmack707/nginx_ext_lb_4_k8s/master/files/custom-resources.yaml
       args:
         chdir: $HOME
         
