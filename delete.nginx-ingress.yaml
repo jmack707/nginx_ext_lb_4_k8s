@@ -1,0 +1,29 @@
+---
+# Deploy Ingresslink with ExternalDNS
+- name: Deploy Ingresslink with ExternalDNS
+  hosts: master
+  gather_facts: false
+
+  vars:
+    package_state: absent
+    secret_state: delete
+
+  tasks:
+    - name: Delete a nginx-ingress namespace
+      kubernetes.core.k8s:
+        name: nginx-ingress
+        kind: Namespace
+        state: "{{package_state}}"
+
+    - name: BIG-IP credentials as Kubernetes Secrets
+      ansible.builtin.command: 
+        cmd: kubectl delete secret bigip-login -n kube-system 
+      ignore_errors: true
+
+    - name: NGINX IC
+      import_role:
+        name: manage_nic_deployment
+
+    - name: Syslog
+      import_role: 
+        name: manage_syslog_deployment

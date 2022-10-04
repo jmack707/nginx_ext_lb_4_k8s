@@ -1,0 +1,54 @@
+---
+# Deploy Ingresslink with ExternalDNS
+- name: Deploy Ingresslink with ExternalDNS
+  hosts: master
+  gather_facts: false
+
+  vars_files:
+    - ../vars/k8s_secret.yaml
+
+  vars:
+      package_state: present
+      secret_state: create
+
+  tasks:
+    - name: Ensure Pip is installed
+      ansible.builtin.package:
+        name: python3-pip
+        state: present
+      become: true
+
+    - name: Ensure Kubernetes is installed
+      pip:
+        name: 
+          - Kubernetes>=12.0.0
+          - PyYAML
+          - kubernetes-validate
+        state: present
+      become: true 
+
+    - name: Create a nginx-ingress namespace
+      kubernetes.core.k8s:
+        name: nginx-ingress
+        kind: Namespace
+        state: "{{package_state}}"
+
+    - name: NGINX JWT in a Docker Config Secret
+      ansible.builtin.command: 
+        cmd: kubectl create secret docker-registry regcred --docker-server=private-registry.nginx.com --docker-username="{{nginx_jwt}}" --docker-password=none -n nginx-ingress
+      ignore_errors: true
+      #no_log: true
+
+    - name: BIG-IP credentials as Kubernetes Secrets
+      ansible.builtin.command: 
+        cmd: kubectl create secret generic bigip-login -n kube-system --from-literal=username=admin --from-literal=password="{{ bigip_passwd }}"
+      ignore_errors: true
+      #no_log: true
+
+    - name: NGINX IC
+      import_role:
+        name: manage_nic_deployment
+
+    - name: Syslog
+      import_role: 
+        name: manage_syslog_deployment

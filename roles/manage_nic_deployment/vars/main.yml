@@ -1,0 +1,5 @@
+---
+# vars file for roles/install_nic
+local_domain: local
+nginx_dashboard_address: 10.1.10.110
+with_nsm: nginx-ingress

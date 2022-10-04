@@ -1,0 +1,34 @@
+---
+# tasks file for roles/install_nic
+
+- name: Manage NGINX NIC Deployment
+  kubernetes.core.k8s:
+    state: "{{ package_state }}"
+    definition: "{{ lookup('file', 'files/{{item}}.yaml') | from_yaml_all }}"  
+  with_items: 
+    - k8s.nginx.org_virtualservers
+    - k8s.nginx.org_virtualserverroutes
+    - k8s.nginx.org_transportservers
+    - k8s.nginx.org_policies
+    - ns-and-sa
+    - rbac
+    - ap-rbac
+    - apdos-rbac
+    - default-server-secret
+    - appprotect.f5.com_aplogconfs
+    - appprotect.f5.com_appolicies
+    - appprotect.f5.com_apusersigs
+    - appprotectdos.f5.com_apdoslogconfs
+    - appprotectdos.f5.com_apdospolicy
+    - appprotectdos.f5.com_dosprotectedresources
+    - appprotect-dos-arb
+    - appprotect-dos-arb-svc
+    - nginx-config
+    - ingress-class
+    - "{{with_nsm}}"
+    - nginx-service
+
+- name: Manage Dashboard Deployment
+  kubernetes.core.k8s:
+    state: "{{ package_state }}"
+    definition: "{{ lookup('template', 'templates/nginx-dashboard.j2') | from_yaml_all }}" 
