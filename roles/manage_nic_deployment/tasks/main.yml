@@ -26,9 +26,9 @@
     - nginx-config
     - ingress-class
     - nginx-ingress
-    - nginx-service
+    #- nginx-service
 
-- name: Manage Dashboard Deployment
-  kubernetes.core.k8s:
-    state: "{{ package_state }}"
-    definition: "{{ lookup('template', 'templates/nginx-dashboard.j2') | from_yaml_all }}" 
+#- name: Manage Dashboard Deployment
+#  kubernetes.core.k8s:
+#    state: "{{ package_state }}"
+#    definition: "{{ lookup('template', 'templates/nginx-dashboard.j2') | from_yaml_all }}" 
