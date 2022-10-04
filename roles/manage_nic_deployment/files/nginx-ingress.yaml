@@ -60,8 +60,8 @@ spec:
           - -nginx-status-port=9000
           - -nginx-status-allow-cidrs=0.0.0.0/0
           - -enable-snippets
-          - -enable-app-protect
-          - -app-protect-log-level=info
+         # - -enable-app-protect
+         # - -app-protect-log-level=info
          #- -v=3 # Enables extensive logging. Useful for troubleshooting.
           - -report-ingress-status
          #- -external-service=nginx-ingress
