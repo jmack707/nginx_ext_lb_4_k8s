@@ -4,7 +4,7 @@ kind: IPPool
 metadata:
   name: pool0
 spec:
-  cidr: 10.40.100.0/24
+  cidr: 10.244.0.0/24
   blockSize: 24
   ipipMode: CrossSubnet
   natOutgoing: true
@@ -16,7 +16,7 @@ kind: IPPool
 metadata:
   name: pool1
 spec:
-  cidr: 10.40.110.0/24
+  cidr: 10.244.1.0/24
   blockSize: 24
   ipipMode: CrossSubnet
   natOutgoing: true
@@ -28,7 +28,7 @@ kind: IPPool
 metadata:
   name: pool2
 spec:
-  cidr: 10.40.120.0/24
+  cidr: 10.244.2.0/24
   blockSize: 24
   ipipMode: CrossSubnet
   natOutgoing: true
