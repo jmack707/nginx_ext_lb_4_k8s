@@ -1,0 +1,36 @@
+---
+apiVersion: projectcalico.org/v3
+kind: IPPool
+metadata:
+  name: pool0
+spec:
+  cidr: 10.40.100.0/24
+  blockSize: 24
+  ipipMode: CrossSubnet
+  natOutgoing: true
+  disabled: false
+  nodeSelector: kubernetes.io/hostname == 'master'
+---
+apiVersion: projectcalico.org/v3
+kind: IPPool
+metadata:
+  name: pool1
+spec:
+  cidr: 10.40.110.0/24
+  blockSize: 24
+  ipipMode: CrossSubnet
+  natOutgoing: true
+  disabled: false
+  nodeSelector: kubernetes.io/hostname == 'node1'
+---
+apiVersion: projectcalico.org/v3
+kind: IPPool
+metadata:
+  name: pool2
+spec:
+  cidr: 10.40.120.0/24
+  blockSize: 24
+  ipipMode: CrossSubnet
+  natOutgoing: true
+  disabled: false
+  nodeSelector: kubernetes.io/hostname == 'node2'
