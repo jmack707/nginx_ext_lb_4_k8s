@@ -1,0 +1,9 @@
+---
+# tasks file for roles/join-workers
+
+- name: Run join node script
+  ansible.builtin.shell:
+     cmd: "/tmp/kubernetes_join_command.sh"
+  delegate_to: "{{ item }}"
+  loop: "{{ groups['workers'] }}"
+  become: true

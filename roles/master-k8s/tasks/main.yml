@@ -1,0 +1,67 @@
+---
+# tasks file for roles/master-k8
+
+    - name: Copy kubeadm.conf
+      copy: 
+        src: files/kubeadm.conf
+        dest: "/tmp/kubeadm.conf"
+        mode: "0777"
+      delegate_to: master
+
+    - name: initialize the cluster
+      shell: kubeadm init --config /tmp/kubeadm.conf
+      become: true
+      delegate_to: master
+
+    - name: create .labuser directory
+      become: true
+      become_user: labuser
+      file:
+        path: $HOME/.kube
+        state: directory
+        mode: 0755
+
+    - name: copies admin.conf to user's kube config
+      become: true
+      copy:
+        src: /etc/kubernetes/admin.conf
+        dest: /home/labuser/.kube/config
+        remote_src: yes
+        owner: labuser
+
+    - name: install Pod network
+      become: true
+      become_user: labuser
+      shell: kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.24.1/manifests/tigera-operator.yaml
+      args:
+        chdir: $HOME
+
+
+        
+    - name: Get the token for joining the worker nodes
+      become: true
+      become_user: labuser
+      shell: kubeadm token create  --print-join-command
+      register: kubernetes_join_command
+
+    - debug:
+        msg: "{{ kubernetes_join_command.stdout }}"
+
+    - name: Copy join command to local file.
+      copy: 
+        content: "{{ kubernetes_join_command.stdout_lines[0] }}" 
+        dest: "/tmp/kubernetes_join_command.sh"
+        mode: "0777"
+      become: true
+      become_user: labuser
+      delegate_to: "{{ item }}"
+      loop: "{{ groups['workers'] }}"
+
+    - name: Bash Completion and Shortcuts
+      ansible.builtin.shell: "{{ item }}"
+      with_items: 
+        - echo 'source <(kubectl completion bash)' >>/home/labuser/.bashrc
+        - echo 'alias k=kubectl' >>/home/labuser/.bashrc
+        - echo 'complete -o default -F __start_kubectl k' >>/home/labuser/.bashrc
+      args:
+        executable: /bin/bash

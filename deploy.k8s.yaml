@@ -1,0 +1,21 @@
+---
+- name: User configurations
+  hosts: all
+  roles:
+    - users
+
+- name: Install Common files
+  hosts: all
+  roles: 
+    - install-k8s
+
+- name: Configure Master
+  hosts: master
+  roles:
+    - master-k8s
+
+- name: Node join cluster
+  hosts: workers
+  roles:
+    - join-workers
+
