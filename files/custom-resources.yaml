@@ -3,47 +3,18 @@
 apiVersion: operator.tigera.io/v1
 kind: Installation
 metadata:
-  name: pool0
+  name: default
 spec:
   # Configures Calico networking.
   calicoNetwork:
     # Note: The ipPools section cannot be modified post-install.
     ipPools:
     - blockSize: 24
-      cidr: 10.244.0.0/24
+      cidr: 10.244.0.0/16
       encapsulation: VXLANCrossSubnet
       natOutgoing: Enabled
-      nodeSelector: kubernetes.io/hostname == 'master'
----
-apiVersion: operator.tigera.io/v1
-kind: Installation
-metadata:
-  name: pool1
-spec:
-  # Configures Calico networking.
-  calicoNetwork:
-    # Note: The ipPools section cannot be modified post-install.
-    ipPools:
-    - blockSize: 24
-      cidr: 10.244.1.0/24
-      encapsulation: VXLANCrossSubnet
-      natOutgoing: Enabled
-      nodeSelector: kubernetes.io/hostname == 'node1'
----
-apiVersion: operator.tigera.io/v1
-kind: Installation
-metadata:
-  name: pool2
-spec:
-  # Configures Calico networking.
-  calicoNetwork:
-    # Note: The ipPools section cannot be modified post-install.
-    ipPools:
-    - blockSize: 24
-      cidr: 10.244.2.0/24
-      encapsulation: VXLANCrossSubnet
-      natOutgoing: Enabled
-      nodeSelector: kubernetes.io/hostname == 'node2'
+      nodeSelector: all()
+
 ---
 
 # This section configures the Calico API server.
@@ -51,21 +22,7 @@ spec:
 apiVersion: operator.tigera.io/v1
 kind: APIServer 
 metadata: 
-  name: pool0
-spec: {}
-
----
-apiVersion: operator.tigera.io/v1
-kind: APIServer 
-metadata: 
-  name: pool1
-spec: {}
-
----
-apiVersion: operator.tigera.io/v1
-kind: APIServer 
-metadata: 
-  name: pool2
+  name: default
 spec: {}
 
 
