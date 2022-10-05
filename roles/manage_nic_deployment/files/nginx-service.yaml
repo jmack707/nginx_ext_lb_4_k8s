@@ -18,3 +18,4 @@ spec:
   selector:
     app: nginx-ingress
   type: ClusterIP
+  clusterIP: None
