@@ -10,7 +10,7 @@
         nginx_license:
           certificate: license/nginx-repo.crt
           key: license/nginx-repo.key
-        nginx_remove_license: true
+        nginx_remove_license: false
         nginx_modules:
           - auth-spnego
           - brotli
