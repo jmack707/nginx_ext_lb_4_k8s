@@ -10,30 +10,6 @@ spec:
 apiVersion: projectcalico.org/v4
 kind: BGPPeer
 metadata:
-  name: master
-spec:
-  peerIP: 172.16.20.30  
-  asNumber: 64512
----
-apiVersion: projectcalico.org/v4
-kind: BGPPeer
-metadata:
-  name: node1
-spec:
-  peerIP: 172.16.20.31
-  asNumber: 64512
----
-apiVersion: projectcalico.org/v4
-kind: BGPPeer
-metadata:
-  name: node2
-spec:
-  peerIP: 172.16.20.32
-  asNumber: 64512
----
-apiVersion: projectcalico.org/v4
-kind: BGPPeer
-metadata:
   name: nginx-lb
 spec:
   peerIP: 172.16.20.15

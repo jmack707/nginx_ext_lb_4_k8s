@@ -26,7 +26,7 @@
     - nginx-config
     - ingress-class
     - nginx-ingress
-    #- nginx-service
+    - nginx-service
 
 #- name: Manage Dashboard Deployment
 #  kubernetes.core.k8s:
