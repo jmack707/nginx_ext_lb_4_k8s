@@ -36,12 +36,12 @@
       args:
         chdir: $HOME
 
-    #- name: customize Pod network
-    #  become: true
-    #  become_user: labuser
-    #  shell: kubectl create -f https://raw.githubusercontent.com/jmack707/nginx_ext_lb_4_k8s/master/files/custom-resources.yaml
-    #  args:
-    #    chdir: $HOME
+    - name: customize Pod network
+      become: true
+      become_user: labuser
+      shell: kubectl create -f https://raw.githubusercontent.com/jmack707/nginx_ext_lb_4_k8s/master/files/custom-resources.yaml
+      args:
+        chdir: $HOME
         
     - name: Get the token for joining the worker nodes
       become: true
