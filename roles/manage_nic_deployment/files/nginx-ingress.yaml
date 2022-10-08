@@ -18,7 +18,7 @@ spec:
         prometheus.io/port: "9113"
     spec:
       nodeSelector:
-        ingress-ready: true
+        ingress-ready: "true"
       serviceAccountName: nginx-ingress
       containers:
       - image: private-registry.nginx.com/nginx-ic-nap/nginx-plus-ingress:2.3.0
