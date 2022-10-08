@@ -17,6 +17,13 @@ spec:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9113"
     spec:
+      nodeSelector:
+        ingress-ready:true
+      tolerations:
+      - key: dedicated
+        operator: Equal
+        value: master
+        effect: NoSchedule    
       serviceAccountName: nginx-ingress
       containers:
       - image: private-registry.nginx.com/nginx-ic-nap/nginx-plus-ingress:2.3.0
