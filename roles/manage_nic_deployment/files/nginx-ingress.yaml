@@ -18,17 +18,6 @@ spec:
         prometheus.io/port: "9113"
     spec:
       serviceAccountName: nginx-ingress
-      nodeSelector:
-        ingress-ready: "true"
-        kubernetes.io/os: linux
-      terminationGracePeriodSeconds: 0
-      tolerations:
-      - effect: NoSchedule
-        key: node-role.kubernetes.io/master
-        operator: Equal
-      - effect: NoSchedule
-        key: node-role.kubernetes.io/control-plane
-        operator: Equal      
       containers:
       - image: private-registry.nginx.com/nginx-ic-nap/nginx-plus-ingress:2.3.0
         imagePullPolicy: IfNotPresent
