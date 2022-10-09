@@ -12,18 +12,18 @@
     - k8s.nginx.org_policies
     - ns-and-sa
     - rbac
-    - ap-rbac
-    - apdos-rbac
+    #- ap-rbac
+    #- apdos-rbac
     - default-server-secret
-    - appprotect.f5.com_aplogconfs
-    - appprotect.f5.com_appolicies
-    - appprotect.f5.com_apusersigs
-    - appprotectdos.f5.com_apdoslogconfs
-    - appprotectdos.f5.com_apdospolicy
-    - appprotectdos.f5.com_dosprotectedresources
-    - appprotect-dos-arb
-    - appprotect-dos-arb-svc
-    - nginx-config
+    #- appprotect.f5.com_aplogconfs
+    #- appprotect.f5.com_appolicies
+    #- appprotect.f5.com_apusersigs
+    #- appprotectdos.f5.com_apdoslogconfs
+    #- appprotectdos.f5.com_apdospolicy
+    #- appprotectdos.f5.com_dosprotectedresources
+    #- appprotect-dos-arb
+    #- appprotect-dos-arb-svc
+    #- nginx-config
     - ingress-class
     - nginx-ingress
     - nginx-service
