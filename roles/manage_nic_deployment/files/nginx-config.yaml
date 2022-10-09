@@ -4,7 +4,6 @@ metadata:
   name: nginx-config
   namespace: nginx-ingress
 data:
-  #proxy-protocol: "True"
-  proxy-protocol: "False"
-  #real-ip-header: "proxy_protocol"
-  #set-real-ip-from: "0.0.0.0/0"
+  proxy-protocol: "True"
+  real-ip-header: "proxy_protocol"
+  set-real-ip-from: "0.0.0.0/0"
