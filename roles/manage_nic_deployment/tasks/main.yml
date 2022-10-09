@@ -23,7 +23,7 @@
     #- appprotectdos.f5.com_dosprotectedresources
     #- appprotect-dos-arb
     #- appprotect-dos-arb-svc
-    #- nginx-config
+    - nginx-config
     - ingress-class
     - nginx-ingress
     - nginx-service
